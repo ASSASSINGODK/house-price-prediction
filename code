@@ -1,0 +1,49 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+df_calhousing = pd.read_csv("/content/drive/MyDrive/Newyork.csv.csv")
+df_calhousing.info()
+  df_calhousing.head()
+  df_calhousing_na.duplicated().value_counts()
+df_calhousing_na.describe()
+  df_calhousing_na= df_calhousing.dropna(axis=0)
+df_calhousing_na.head()
+df_calhousing_na.info()
+  df_calhousing_na.describe()
+df_calhousing_na.hist(bins = 50, figsize=(20,15))
+  df_calhousing_na.plot(kind="scatter", x = "longitude", y="latitude", alpha = 0.1, s = df_calhousing_na["population"]/100, c="median_house_value",cmap = plt.get_cmap("jet") )
+scatter_plot = df_calhousing[['housing_median_age','total_rooms','total_bedrooms','population','households','median_income']]
+for x in scatter_plot:
+  df_calhousing_na.plot(kind = 'scatter', x= x, y = 'median_house_value')
+    corr_matrix = df_calhousing_na.drop('ocean_proximity', axis=1).corr()
+corr_matrix["median_house_value"].sort_values(ascending = False)
+mean_housevalue_oceanproximity = df_calhousing_na.groupby("ocean_proximity")["median_house_value"].mean()
+print(mean_housevalue_oceanproximity)
+
+df_calhousing_na["ocean_proximity"].value_counts()
+
+plt.hist(df_calhousing_na['ocean_proximity'])
+X = df_calhousing_na[[ 'housing_median_age', 'total_rooms',
+       'total_bedrooms', 'population', 'households', 'median_income']]
+
+y =df_calhousing_na['median_house_value']
+  from sklearn.model_selection import  train_test_split
+X_train, X_test, y_train, y_test = train_test_split(X,y, test_size =0.25)
+X_train
+from sklearn.linear_model import LinearRegression
+
+lm = LinearRegression()
+  lm.fit(X_train,y_train)
+
+
+coeff_df = pd.DataFrame(lm.coef_,X.columns,columns=["coefficient"])
+coeff_df
+predictions = lm.predict(X_test)
+
+plt.scatter(y_test,predictions)
+  from sklearn import metrics
+import numpy as np
+
+print('MAE:', metrics.mean_absolute_error(y_test, predictions))
+print('MSE:', metrics.mean_squared_error(y_test, predictions))
+print('RMSE:', np.sqrt(metrics.mean_squared_error(y_test, predictions)))
