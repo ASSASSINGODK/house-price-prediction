@@ -1,7 +1,7 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
-df_calhousing = pd.read_csv("/content/drive/MyDrive/Newyork.csv.csv")
+df_calhousing = pd.read_csv("india.csv")
 df_calhousing.info()
   df_calhousing.head()
   df_calhousing_na.duplicated().value_counts()
